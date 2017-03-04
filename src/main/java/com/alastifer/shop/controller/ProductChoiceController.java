@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/productAll")
+@WebServlet("/product.do")
 public class ProductChoiceController extends HttpServlet {
 
     private final static String PAGE_OK = "/jsp/product.jsp";
