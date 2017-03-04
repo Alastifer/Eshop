@@ -14,6 +14,10 @@ import java.io.IOException;
 @WebServlet("/product.do")
 public class ProductChoiceController extends HttpServlet {
 
+    private final static String PAGE_OK = "/jsp/product.jsp";
+
+    private final static String PAGE_ERROR = "/jsp/error/product.jsp";
+
     private final ProductsDAO dao = new ProductsDAO();
 
     @Override
@@ -24,10 +28,10 @@ public class ProductChoiceController extends HttpServlet {
 
         if (product == null) {
             req.setAttribute("error", "Sorry! No such product!");
-            req.getRequestDispatcher("/jsp/error/product.jsp").forward(req, resp);
+            req.getRequestDispatcher(PAGE_ERROR).forward(req, resp);
         } else {
             req.setAttribute("product", product);
-            req.getRequestDispatcher("/jsp/product.jsp").forward(req, resp);
+            req.getRequestDispatcher(PAGE_OK).forward(req, resp);
         }
     }
 
