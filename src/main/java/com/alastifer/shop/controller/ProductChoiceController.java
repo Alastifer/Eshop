@@ -18,6 +18,10 @@ public class ProductChoiceController extends HttpServlet {
 
     private final static String PAGE_ERROR = "/jsp/error/product.jsp";
 
+    private final static String ATTRIBUTE_ERROR = "error";
+
+    private final static String ATTRIBUTE_PRODUCT = "product";
+
     private final ProductsDAO dao = new ProductsDAO();
 
     @Override
@@ -27,10 +31,10 @@ public class ProductChoiceController extends HttpServlet {
         Product product = getProductByID(productID);
 
         if (product == null) {
-            req.setAttribute("error", "Sorry! No such product!");
+            req.setAttribute(ATTRIBUTE_ERROR, "Sorry! No such product!");
             req.getRequestDispatcher(PAGE_ERROR).forward(req, resp);
         } else {
-            req.setAttribute("product", product);
+            req.setAttribute(ATTRIBUTE_PRODUCT, product);
             req.getRequestDispatcher(PAGE_OK).forward(req, resp);
         }
     }
