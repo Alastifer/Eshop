@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/product.do")
+@WebServlet("/productAll")
 public class ProductChoiceController extends HttpServlet {
 
     private final static String PAGE_OK = "/jsp/product.jsp";
@@ -22,12 +22,14 @@ public class ProductChoiceController extends HttpServlet {
 
     private final static String ATTRIBUTE_PRODUCT = "product";
 
+    private final static String PARAM_ID = "id";
+
     private final ProductsDAO dao = new ProductsDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Integer productID = Integer.valueOf(req.getParameter("id"));
+        Integer productID = Integer.valueOf(req.getParameter(PARAM_ID));
         Product product = getProductByID(productID);
 
         if (product == null) {
