@@ -7,13 +7,13 @@ import java.util.*;
 
 public class ProductsDAO {
 
-    private final List<Product> database = new ArrayList<Product>() {
-        {
-            add(new Product("Sugar", 1));
-            add(new Product("Bread", 2));
-            add(new Product("Paper", 3));
-        }
-    };
+    private final List<Product> database = new ArrayList<>();
+
+    public ProductsDAO() {
+        database.add(new Product("Sugar", 1));
+        database.add(new Product("Bread", 2));
+        database.add(new Product("Paper", 3));
+    }
 
     public Product getProductByID(final Integer id) throws NoSuchEntityException {
         if (id > database.size() || id <= 0) {
