@@ -45,10 +45,8 @@ public class ProductChoiceController extends HttpServlet {
         try {
             return dao.getProductByID(productID);
         } catch (NoSuchEntityException e) {
-            e.printStackTrace();
+            return null;
         }
-
-        return null;
     }
 
 }
