@@ -14,9 +14,9 @@ import java.io.IOException;
 @WebServlet("/product.do")
 public class ProductChoiceController extends HttpServlet {
 
-    private final static String PAGE_OK = "/jsp/product.jsp";
+    private final static String PAGE_OK = "/jsp/oneProduct.jsp";
 
-    private final static String PAGE_ERROR = "/jsp/error/product.jsp";
+    private final static String PAGE_ERROR = "/jsp/error/productNotFound.jsp";
 
     private final static String ATTRIBUTE_ERROR = "error";
 
