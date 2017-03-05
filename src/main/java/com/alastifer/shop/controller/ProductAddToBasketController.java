@@ -46,7 +46,7 @@ public class ProductAddToBasketController extends HttpServlet {
                 }
 
                 resp.sendRedirect("product.do?id=" + idProduct);
-            } catch (NoSuchEntityException e) {
+            } catch (NumberFormatException | ClassCastException | NoSuchEntityException e) {
                 e.printStackTrace();
             }
         }
