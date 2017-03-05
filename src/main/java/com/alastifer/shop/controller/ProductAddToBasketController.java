@@ -15,7 +15,7 @@ import java.util.Map;
 @WebServlet("/productAdd.do")
 public class ProductAddToBasketController extends HttpServlet {
 
-    private static final String ATTRIBUTE_PRODUCT_BASKET = "productBasket";
+    private static final String ATTRIBUTE_PRODUCT_BASKET = "productsBasket";
 
     private static final String PARAM_ID = "id";
 
