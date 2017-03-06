@@ -13,7 +13,8 @@
             <c:forEach var="productInBasket" items="${productsBasket}">
                 <li>
                     <a href="product.do?id=${productInBasket.key.id}">${productInBasket.key.name}</a>: =
-                        ${productInBasket.value}
+                        ${productInBasket.value} <a href="productDelete.do?id=${productInBasket.key.id}&currentProductID=${product.id}">
+                        delete</a>
                 </li>
             </c:forEach>
         </ul>
