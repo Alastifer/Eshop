@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @WebServlet("/productDelete.do")
-public class ProductDeleteFromBasket extends HttpServlet {
+public class ProductDeleteFromBasketController extends HttpServlet {
 
     private static final String ATTRIBUTE_PRODUCT_BASKET = "productsBasket";
 
