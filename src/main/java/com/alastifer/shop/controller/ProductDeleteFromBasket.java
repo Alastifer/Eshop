@@ -1,6 +1,7 @@
 package com.alastifer.shop.controller;
 
 import com.alastifer.shop.dao.ProductsDAO;
+import com.alastifer.shop.dao.exception.NoSuchEntityException;
 import com.alastifer.shop.entity.Product;
 
 import javax.servlet.ServletException;
@@ -50,7 +51,7 @@ public class ProductDeleteFromBasket extends HttpServlet {
 
                 resp.sendRedirect("product.do?id=" + req.getParameter(PARAM_REDIRECT_PAGE_ID));
 
-            } catch (Exception e) {
+            } catch (NumberFormatException | ClassCastException | NoSuchEntityException e) {
                 e.printStackTrace();
             }
         }
