@@ -39,7 +39,7 @@ public class ProductAddToBasketController extends HttpServlet {
                     if (!newBasket.containsKey(product)) {
                         newBasket.put(product, 1);
                     } else {
-                        newBasket.put(product, newBasket.get(product) + 1);
+                        newBasket.replace(product, newBasket.get(product) + 1);
                     }
 
                     session.setAttribute(ATTRIBUTE_PRODUCT_BASKET, Collections.unmodifiableMap(newBasket));
