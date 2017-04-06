@@ -8,7 +8,7 @@
         <br/><br/><a href = "/eShop">Main page</a>
 
         <hr/>
-        <h2>Product basket<h2/>
+        <h2>Product basket</h2>
         <ul>
             <c:forEach var="productInBasket" items="${productsBasket}">
                 <li>
