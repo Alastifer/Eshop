@@ -6,7 +6,7 @@
          version="2.4">
 
     <welcome-file-list>
-        <welcome-file>/html/products.html</welcome-file>
+        <welcome-file>/html/index.html</welcome-file>
     </welcome-file-list>
 
 </web-app>
