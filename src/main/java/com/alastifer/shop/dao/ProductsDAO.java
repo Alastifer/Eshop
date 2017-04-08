@@ -13,6 +13,7 @@ public class ProductsDAO {
         database.add(new Product("Sugar", 1));
         database.add(new Product("Bread", 2));
         database.add(new Product("Paper", 3));
+        database.add(new Product("Pen", 4));
     }
 
     public Product getProductByID(final Integer id) throws NoSuchEntityException {
@@ -39,14 +40,8 @@ public class ProductsDAO {
         throw new NoSuchEntityException("No element with name \"" + productName + "\" in database");
     }
 
-    public List<String> getAllProductsName() {
-        List<String> allProductsName = new ArrayList<>();
-
-        for (Product id : database) {
-            allProductsName.add(id.getName());
-        }
-
-        return allProductsName;
+    public List<Product> getAllProducts() {
+        return database;
     }
 
 }
