@@ -19,6 +19,8 @@ public class ProductAddToBasketController extends HttpServlet {
 
     private static final String PARAM_ID = "id";
 
+    private static final String PAGE_OK = "product.do?id=";
+
     private final ProductsDAO productsDAO = new ProductsDAO();
 
     @Override
@@ -45,7 +47,7 @@ public class ProductAddToBasketController extends HttpServlet {
                     session.setAttribute(ATTRIBUTE_PRODUCT_BASKET, Collections.unmodifiableMap(newBasket));
                 }
 
-                resp.sendRedirect("product.do?id=" + idProduct);
+                resp.sendRedirect(PAGE_OK + idProduct);
             } catch (NumberFormatException | ClassCastException | NoSuchEntityException e) {
                 e.printStackTrace();
             }
