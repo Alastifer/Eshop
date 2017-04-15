@@ -24,6 +24,8 @@ public class ProductDeleteFromBasketController extends HttpServlet {
 
     private static final String PARAM_REDIRECT_PAGE_ID = "currentProductID";
 
+    private static final String PAGE_OK = "product.do?id=";
+
     private final ProductsDAO productsDAO = new ProductsDAO();
 
     @Override
@@ -49,7 +51,7 @@ public class ProductDeleteFromBasketController extends HttpServlet {
                     session.setAttribute(ATTRIBUTE_PRODUCT_BASKET, Collections.unmodifiableMap(newBasket));
                 }
 
-                resp.sendRedirect("product.do?id=" + req.getParameter(PARAM_REDIRECT_PAGE_ID));
+                resp.sendRedirect(PAGE_OK + req.getParameter(PARAM_REDIRECT_PAGE_ID));
 
             } catch (NumberFormatException | ClassCastException | NoSuchEntityException e) {
                 e.printStackTrace();
