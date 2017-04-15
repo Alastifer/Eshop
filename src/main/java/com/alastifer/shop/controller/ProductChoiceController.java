@@ -24,6 +24,8 @@ public class ProductChoiceController extends HttpServlet {
 
     private final static String PARAM_ID = "id";
 
+    private final static String ERROR_MESSAGE_NO_PRODUCT = "Sorry! No such product!";
+
     private final ProductsDAO dao = new ProductsDAO();
 
     @Override
@@ -33,7 +35,7 @@ public class ProductChoiceController extends HttpServlet {
         Product product = getProductByID(productID);
 
         if (product == null) {
-            req.setAttribute(ATTRIBUTE_ERROR, "Sorry! No such product!");
+            req.setAttribute(ATTRIBUTE_ERROR, ERROR_MESSAGE_NO_PRODUCT);
             req.getRequestDispatcher(PAGE_ERROR).forward(req, resp);
         } else {
             req.setAttribute(ATTRIBUTE_PRODUCT, product);
