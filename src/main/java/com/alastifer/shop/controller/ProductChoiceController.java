@@ -1,6 +1,7 @@
 package com.alastifer.shop.controller;
 
 import com.alastifer.shop.dao.ProductsDAO;
+import com.alastifer.shop.dao.exception.DAOException;
 import com.alastifer.shop.dao.exception.NoSuchEntityException;
 import com.alastifer.shop.entity.Product;
 
@@ -34,7 +35,7 @@ public class ProductChoiceController extends HttpServlet {
     private Product getProductByID(final int productID) throws IOException {
         try {
             return dao.getProductByID(productID);
-        } catch (NoSuchEntityException e) {
+        } catch (NoSuchEntityException | DAOException e) {
             throw new IOException(e.getMessage(), e);
         }
     }
