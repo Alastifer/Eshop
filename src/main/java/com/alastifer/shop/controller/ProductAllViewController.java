@@ -1,6 +1,8 @@
 package com.alastifer.shop.controller;
 
 import com.alastifer.shop.dao.ProductsDAO;
+import com.alastifer.shop.dao.exception.DAOException;
+import com.alastifer.shop.dao.exception.NoSuchEntityException;
 import com.alastifer.shop.entity.Product;
 
 import javax.servlet.ServletException;
@@ -22,9 +24,17 @@ public class ProductAllViewController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Product> products = dao.getAllProducts();
+        List<Product> products = getAllProducts();
         req.setAttribute(ATTRIBUTE_PRODUCTS, products);
         req.getRequestDispatcher(PAGE_ALL_PRODUCTS).forward(req, resp);
+    }
+
+    private List<Product> getAllProducts() throws IOException {
+        try {
+            return dao.getAllProducts();
+        } catch (DAOException e) {
+            throw new IOException(e.getMessage(), e);
+        }
     }
 
 }
