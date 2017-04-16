@@ -16,38 +16,34 @@ public class ProductChoiceController extends HttpServlet {
 
     private final static String PAGE_OK = "/jsp/oneProduct.jsp";
 
-    private final static String PAGE_ERROR = "/jsp/error/productNotFound.jsp";
-
-    private final static String ATTRIBUTE_ERROR = "error";
-
     private final static String ATTRIBUTE_PRODUCT = "product";
 
     private final static String PARAM_ID = "id";
-
-    private final static String ERROR_MESSAGE_NO_PRODUCT = "Sorry! No such product!";
 
     private final ProductsDAO dao = new ProductsDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Integer productID = Integer.valueOf(req.getParameter(PARAM_ID));
+        Integer productID = getValue(req.getParameter(PARAM_ID));
         Product product = getProductByID(productID);
-
-        if (product == null) {
-            req.setAttribute(ATTRIBUTE_ERROR, ERROR_MESSAGE_NO_PRODUCT);
-            req.getRequestDispatcher(PAGE_ERROR).forward(req, resp);
-        } else {
-            req.setAttribute(ATTRIBUTE_PRODUCT, product);
-            req.getRequestDispatcher(PAGE_OK).forward(req, resp);
-        }
+        req.setAttribute(ATTRIBUTE_PRODUCT, product);
+        req.getRequestDispatcher(PAGE_OK).forward(req, resp);
     }
 
-    private Product getProductByID(final int productID) {
+    private Product getProductByID(final int productID) throws IOException {
         try {
             return dao.getProductByID(productID);
         } catch (NoSuchEntityException e) {
-            return null;
+            throw new IOException(e.getMessage(), e);
+        }
+    }
+
+    private Integer getValue(String value) throws IOException {
+        try {
+            return Integer.valueOf(value);
+        } catch (NumberFormatException e) {
+            throw new IOException("Incorrect id \"" + value + "\"", e);
         }
     }
 
