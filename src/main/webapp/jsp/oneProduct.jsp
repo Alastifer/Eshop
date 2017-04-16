@@ -5,7 +5,7 @@
         Name = ${product.name}
         <br/><br/> ID = ${product.id}
         <br/><a href="productAdd.do?id=${product.id}">add</a>
-        <br/><br/><a href = "/eShop">Main page</a>
+        <br/><br/><a href = "/eShop/index">Main page</a>
 
         <hr/>
         <h2>Product basket</h2>
