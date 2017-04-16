@@ -1,6 +1,7 @@
 package com.alastifer.shop.controller;
 
 import com.alastifer.shop.dao.ProductsDAO;
+import com.alastifer.shop.dao.exception.DAOException;
 import com.alastifer.shop.dao.exception.NoSuchEntityException;
 import com.alastifer.shop.entity.Product;
 
@@ -26,7 +27,7 @@ public class ProductDeleteFromBasketController extends HttpServlet {
 
     private static final String PAGE_OK = "product.do?id=";
 
-    private final ProductsDAO productsDAO = new ProductsDAO();
+    private final ProductsDAO dao = new ProductsDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,7 +36,7 @@ public class ProductDeleteFromBasketController extends HttpServlet {
         if (idProduct != null) {
             try {
                 HttpSession session = req.getSession();
-                Product product = productsDAO.getProductByID(Integer.parseInt(idProduct));
+                Product product = getProductByID(Integer.parseInt(idProduct));
                 Map<Product, Integer> oldBasket = (Map<Product, Integer>) session.getAttribute(ATTRIBUTE_PRODUCT_BASKET);
                 Integer value = oldBasket.get(product);
 
@@ -53,9 +54,17 @@ public class ProductDeleteFromBasketController extends HttpServlet {
 
                 resp.sendRedirect(PAGE_OK + req.getParameter(PARAM_REDIRECT_PAGE_ID));
 
-            } catch (NumberFormatException | ClassCastException | NoSuchEntityException e) {
-                e.printStackTrace();
+            } catch (NumberFormatException | ClassCastException e) {
+                throw new IOException(e.getMessage(), e);
             }
+        }
+    }
+
+    private Product getProductByID(final int productID) throws IOException {
+        try {
+            return dao.getProductByID(productID);
+        } catch (DAOException | NoSuchEntityException e) {
+            throw new IOException(e.getMessage(), e);
         }
     }
 
