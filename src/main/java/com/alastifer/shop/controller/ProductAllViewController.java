@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/")
+@WebServlet("/index")
 public class ProductAllViewController extends HttpServlet {
 
     private final ProductsDAO dao = new ProductsDAO();
