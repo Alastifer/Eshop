@@ -12,15 +12,15 @@ public class ErrorHandlerController extends HttpServlet {
 
     private static final String ATTRIBUTE_ERROR_MESSAGE = "errorMessage";
 
-    private static final String PAGE_ERROR = "jsp/error.jsp";
-
-    private static final Integer CODE_ERROR_PAGE_NOT_FOUND = 404;
-
-    private static final String ERROR_MESSAGE_PAGE_NOT_FOUND = "404 : page not found";
-
     private static final String ATTRIBUTE_SERVLET_ERROR_STATUS_CODE = "javax.servlet.error.status_code";
 
     private static final String ATTRIBUTE_SERVLET_ERROR_MESSAGE = "javax.servlet.error.message";
+
+    private static final String PAGE_ERROR = "jsp/error.jsp";
+
+    private static final String ERROR_MESSAGE_PAGE_NOT_FOUND = "404 : page not found";
+
+    private static final Integer CODE_ERROR_PAGE_NOT_FOUND = 404;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
