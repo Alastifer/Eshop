@@ -2,9 +2,11 @@ package com.alastifer.shop.entity;
 
 public class Product {
 
-    private final String name;
+    private String name;
 
-    private final int id;
+    private int id;
+
+    public Product(){}
 
     public Product(final String name, final int id) {
         this.name = name;
@@ -17,6 +19,14 @@ public class Product {
 
     public int getId() {
         return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
