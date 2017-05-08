@@ -3,67 +3,38 @@ package com.alastifer.shop.dao;
 import com.alastifer.shop.dao.exception.DAOException;
 import com.alastifer.shop.dao.exception.NoSuchEntityException;
 import com.alastifer.shop.entity.Product;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-import java.sql.*;
 import java.util.*;
 
-public class ProductsDAO {
+public class ProductsDAO implements DAO {
 
-    private static final String QUERY_SELECT_ALL = "SELECT id, name FROM products";
+    private static final String HQL_QUERY_SELECT_ALL = "FROM Product";
 
-    private static final String QUERY_SELECT_BY_ID = "SELECT id, name FROM products WHERE id=?";
+    private static SessionFactory sessionHibernate = new Configuration().configure().buildSessionFactory();
 
     public Product getProductByID(final Integer id) throws NoSuchEntityException, DAOException {
-        DataSource dataSource = initDataSource();
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(QUERY_SELECT_BY_ID)){
+        try (Session session = sessionHibernate.openSession()) {
+            Product product = session.get(Product.class, id);
 
-            pStatement.setInt(1, id);
-            ResultSet resultSet = pStatement.executeQuery();
-
-            if (resultSet.next()) {
-                String name = resultSet.getString(2);
-                return new Product(name, id);
-            } else {
-                throw new NoSuchEntityException("No product with id " + id);
+            if (product == null) {
+                throw new NoSuchEntityException("No product with id = " + id);
             }
 
-        } catch (SQLException e) {
-            throw new DAOException("Error in database " + e.getMessage(), e);
+            return product;
+        } catch (HibernateException e) {
+            throw new DAOException("Problem with database", e);
         }
     }
 
     public List<Product> getAllProducts() throws DAOException {
-        List<Product> products = new ArrayList<>();
-
-        DataSource dataSource = initDataSource();
-        try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(QUERY_SELECT_ALL)) {
-
-            while (resultSet.next()) {
-                Integer id = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                products.add(new Product(name, id));
-            }
-
-        } catch (SQLException e) {
-            throw new DAOException("Error in database " + e.getMessage(), e);
-        }
-
-        return products;
-    }
-
-    private DataSource initDataSource() throws DAOException {
-        try {
-            Context context = new InitialContext();
-            return  (DataSource) context.lookup("java:comp/env/jdbc/eShop");
-        } catch (NamingException e) {
-            throw new DAOException("Error in initialContext: " + e.getMessage(), e);
+        try (Session session = sessionHibernate.openSession()) {
+            return session.createQuery(HQL_QUERY_SELECT_ALL).list();
+        } catch (HibernateException e) {
+            throw new DAOException("Problem with database", e);
         }
     }
 
