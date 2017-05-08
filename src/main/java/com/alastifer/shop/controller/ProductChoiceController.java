@@ -25,7 +25,6 @@ public class ProductChoiceController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         Integer productID = getValue(req.getParameter(PARAM_ID));
         Product product = getProductByID(productID);
         req.setAttribute(ATTRIBUTE_PRODUCT, product);
