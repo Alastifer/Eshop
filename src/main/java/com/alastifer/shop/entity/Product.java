@@ -1,10 +1,18 @@
 package com.alastifer.shop.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "products")
 public class Product {
 
-    private String name;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "name", nullable = false)
+    private String name;
 
     public Product(){}
 
