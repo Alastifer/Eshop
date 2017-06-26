@@ -10,6 +10,6 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
 
-        <mapping resource="entityHibernate/Product.hbm.xml"/>
+        <mapping class="com.alastifer.shop.entity.Product"/>
     </session-factory>
 </hibernate-configuration>
